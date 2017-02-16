@@ -1,0 +1,111 @@
+####################################### CLASE 15-02-17
+############################## SUBIR LAS SERIES DE DATOS DE EXCEL Y CONVERTIRLAS A TS(SERIES DE TIEMPO)
+install.packages("readxl")
+library(readxl)
+###################################### petroleo
+petroleo<-read_excel("C://Users//SALA-F13//Desktop//petroleo.xlsx")
+petroleo.ts<-ts(petroleo,frequency = 1,start=(0))
+plot(petroleo.ts,ylab="datos",xlab="Periodo",main="Petroleo",col=2)
+######################################## importaciones de bienes y servicios de
+importa<-read_excel("C://Users//SALA-F13//Desktop//importa.xlsx")
+importa.ts<-ts(importa,frequency = 1,start=(0)) 
+plot(importa.ts,ylab="datos",xlab="Periodo",main="Importaciones de Bienes y Servicios",col=2)
+########################################### tasa de mortalidad infantil
+mortrate<-read_excel("C://Users//SALA-F13//Desktop//mort_rate.xlsx")
+mortrate.ts<-ts(mortrate,frequency = 1,start=(0))
+plot(mortrate,ylab="datos",xlab="Periodo",main="Tasa de Mortalidad Infantil",col=2)
+############################################
+rates<-read_excel("C://Users//SALA-F13//Desktop//rates.xlsx")
+rates.ts<-ts(rates,frequency = 1,start=(0)) 
+plot(rates.ts,ylab="datos",xlab="Periodo",main="rates",col=2)
+############################################ producto interno bruto de mexico
+gdpmexico<-read_excel("C://Users//SALA-F13//Desktop//gdpmexico.xlsx")
+gdpmexico.ts<-ts(gdpmexico,frequency = 1,start=(0)) 
+plot(gdpmexico.ts,ylab="datos",xlab="Periodo",main="PIB México",col=2)
+############################################## 
+ruralmexico<-read_excel("C://Users//SALA-F13//Desktop//ruralmexico.xlsx")
+ruralmexico.ts<-ts(ruralmexico,frequency = 1,start=(0))
+plot(ruralmexico.ts,ylab="datos",xlab="Periodo",main="ruralmexico",col=2)
+############################################## DESCOMPOSICION DE LAS SERIES DE TIEMPO ANTERIORES
+install.packages("foreign")
+library(foreign)
+?decompose
+################################################################ PETROLEO
+#petroleo.ts=ts(petroleo,frequency=5)
+petroleo.ts<-ts(petroleo,frequency=5)
+
+petrodesc<-decompose(petroleo.ts,"additive")
+#grafica la descomposicion de petroleo como serie de tiempo de diferentes formas, gracias a la descomposicion aditiva
+plot(as.ts(petrodesc)$seasonal)# este caso forma estacional estacional
+plot(as.ts(petrodesc)$trend)# forma de tendencia
+plot(as.ts(petrodesc)$random)# forma aleatoria
+plot(petrodesc)# grafica la serie en sus diferentes descomposiciones 
+# desc multiplicativa
+petrodescm<-decompose(petroleo.ts,"multiplicative")
+plot(as.ts(petrodescm)$seasonal)# este caso forma estacional estacional
+plot(as.ts(petrodescm)$trend)# forma de tendencia
+plot(as.ts(petrodescm)$random)# forma aleatoria
+plot(petrodescm)# grafica la serie en sus diferentes descomposiciones 
+
+?ls
+# OTRA FORMA DE GRAFICAR CON UNA VENTANA NUEVA
+#windows()
+#par(mfrow=c(3,1))
+#plot(diff(petrodesc))
+
+############################################## GDPMEXICO
+gdpmexico.ts<-ts(gdpmexico,frequency=5)
+
+gdpmexdesc<-decompose(gdpmexico.ts,"additive")
+#grafica la descomposicion de petroleo como serie de tiempo de diferentes formas, gracias a la descomposicion aditiva
+plot(as.ts(gdpmexdesc)$seasonal)# este caso forma estacional estacional
+plot(as.ts(gdpmexdesc)$trend)# forma de tendencia
+plot(as.ts(gdpmexdesc)$random)# forma aleatoria
+plot(gdpmexdesc)# grafica la serie en sus diferentes descomposiciones 
+#multiplicativo
+gdpmexdescm<-decompose(gdpmexico.ts,"multiplicative")
+#grafica la descomposicion de petroleo como serie de tiempo de diferentes formas, gracias a la descomposicion aditiva
+plot(as.ts(gdpmexdescm)$seasonal)# este caso forma estacional estacional
+plot(as.ts(gdpmexdescm)$trend)# forma de tendencia
+plot(as.ts(gdpmexdescm)$random)# forma aleatoria
+plot(gdpmexdescm)
+windows()
+
+############################################### rates
+rates.ts<-ts(rates,frequency=5)
+
+ratesdesc<-decompose(rates.ts,"additive")
+#grafica la descomposicion de petroleo como serie de tiempo de diferentes formas, gracias a la descomposicion aditiva
+plot(as.ts(ratesdesc)$seasonal)# este caso forma estacional estacional
+plot(as.ts(ratesdesc)$trend)# forma de tendencia
+plot(as.ts(ratesdesc)$random)# forma aleatoria
+plot(ratesdesc)# grafica la serie en sus diferentes descomposiciones 
+#multiplicativo
+ratesdescm<-decompose(rates.ts,"multiplicative")
+#grafica la descomposicion de petroleo como serie de tiempo de diferentes formas, gracias a la descomposicion aditiva
+plot(as.ts(ratesdescm)$seasonal)# este caso forma estacional estacional
+plot(as.ts(ratesdescm)$trend)# forma de tendencia
+plot(as.ts(ratesdescm)$random)# forma aleatoria
+plot(ratesdescm)
+
+############################################### importa
+importa.ts<-ts(importa,frequency=5)
+
+importadesc<-decompose(importa.ts,"additive")
+#grafica la descomposicion de petroleo como serie de tiempo de diferentes formas, gracias a la descomposicion aditiva
+plot(as.ts(importadesc)$seasonal)# este caso forma estacional estacional
+plot(as.ts(importadesc)$trend)# forma de tendencia
+plot(as.ts(importadesc)$random)# forma aleatoria
+plot(importadesc)# grafica la serie en sus diferentes descomposiciones 
+#multiplicativo
+importadescm<-decompose(importa.ts,"multiplicative")
+#grafica la descomposicion de petroleo como serie de tiempo de diferentes formas, gracias a la descomposicion aditiva
+plot(as.ts(importadescm)$seasonal)# este caso forma estacional estacional
+plot(as.ts(importadescm)$trend)# forma de tendencia
+plot(as.ts(importadescm)$random)# forma aleatoria
+plot(importadescm)
+
+############################################### mort_rate
+
+
+############################################### ruralmexico
