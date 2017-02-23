@@ -1,0 +1,22 @@
+############################################################################ CLASE 22-02-17
+rm(list=ls())
+install.packages("readxl")
+library(readxl)
+petroleo<-read_excel("C://Users//SALAF-16//Desktop//petroleo.xlsx")
+#petroleo.ts<-ts(petroleo,frequency = 1,start=(0))
+petroleo.ts<-ts(petroleo)
+install.packages("tseries")# sirve para buscar los estadisticos
+library(tseries)
+?acf
+acf(petroleo.ts, lag=20, plot=FALSE) # obtenemos la autocorrelacion de la serie con los primeros 20 retrasos EN LA CONSOLA
+acf(petroleo.ts, plot=TRUE)# nos da la grafica para ver sus retrasos y ver si tienen estacionalidad, 
+
+### transformacioin logaritmica 
+
+petroleo.log <-log(petroleo.ts)
+kpss.test(petroleo.log)# test para ver si hay estacionalidad de kwiatkowski-phillips-schmidt-shin
+# valores menores a 0.05 indica no estacionalidad(p-value<0.05 indica que no hay estacionalidad)
+
+
+adf.test(petroleo.ts, alternative="stationary")# comprobamos si hay estacionalidad por otro metodo t de dickey-fuller aumentada
+#un valor critico (p-value< 0.05 indican datos estacionarios) menor al 0.05 indican datos estacionarios
