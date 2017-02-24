@@ -1,0 +1,98 @@
+############################################################################ CLASE 22-02-17
+rm(list=ls())
+install.packages("readxl")
+library(readxl)
+petroleo<-read_excel("C://Users//SALAF-16//Desktop//petroleo.xlsx")
+#petroleo.ts<-ts(petroleo,frequency = 1,start=(0))
+petroleo.ts<-ts(petroleo)
+install.packages("tseries")# sirve para buscar los estadisticos
+library(tseries)
+?acf
+acf(petroleo.ts, lag=20, plot=FALSE) # obtenemos la autocorrelacion de la serie con los primeros 20 retrasos EN LA CONSOLA
+acf(petroleo.ts, plot=TRUE)# nos da la grafica para ver sus retrasos y ver si tienen estacionalidad, 
+
+### transformacioin logaritmica 
+
+petroleo.log <-log(petroleo.ts)
+kpss.test(petroleo.log)# test para ver si hay estacionalidad de kwiatkowski-phillips-schmidt-shin
+# valores menores a 0.05 indica no estacionalidad(p-value<0.05 indica que no hay estacionalidad)
+
+
+adf.test(petroleo.ts, alternative="stationary")# comprobamos si hay estacionalidad por otro metodo t de dickey-fuller aumentada
+#un valor critico (p-value< 0.05 indican datos estacionarios) menor al 0.05 indican datos estacionarios
+
+############################    IMPORTA   ##########################
+importa<-read_excel("C://Users//SALAF-16//Desktop//importa.xlsx")
+importa.ts<-ts(importa)
+acf(petroleo.ts, lag=20, plot=FALSE) 
+acf(petroleo.ts, plot=TRUE)
+importa.log <-log(importa.ts)
+kpss.test(importa.log)
+adf.test(importa.ts, alternative="stationary")
+
+############################    MORT_RATE   ##########################
+mortrate<-read_excel("C://Users//SALAF-16//Desktop//mort_rate.xlsx")
+mortrate.ts<-ts(mortrate)
+acf(mortrate.ts, lag=20, plot=FALSE) 
+acf(mortrate.ts, plot=TRUE)
+mortrate.log <-log(mortrate.ts)
+kpss.test(mortrate.log)
+adf.test(mortrate.ts, alternative="stationary")
+
+############################    RATES   ##########################
+rates<-read_excel("C://Users//SALAF-16//Desktop//rates.xlsx")
+rates.ts<-ts(rates)
+acf(rates.ts, lag=20, plot=FALSE) 
+acf(rates.ts, plot=TRUE)
+rates.log <-log(rates.ts)
+kpss.test(rates.log)
+adf.test(rates.ts, alternative="stationary")
+
+############################    MORT_RATE   ##########################
+mortrate<-read_excel("C://Users//SALAF-16//Desktop//mort_rate.xlsx")
+mortrate.ts<-ts(mortrate)
+acf(mortrate.ts, lag=20, plot=FALSE) 
+acf(mortrate.ts, plot=TRUE)
+mortrate.log <-log(mortrate.ts)
+kpss.test(mortrate.log)
+adf.test(mortrate.ts, alternative="stationary")
+
+
+
+
+
+
+##############################################################################clase 23-02-2017
+#C:\Users\SALAF-16\Desktop
+library(readxl)
+library(foreign)
+library(haven)
+base<-read_excel("C://Users//SALAF-16//Desktop//base.xlsx")# base es una muestra de la muestra
+#la base en stata esta en hecha en formato 14,ir a la consola environment y luego import dataset, hay que habilitar si no subirlo de excel
+# hay datos falsos en las observaciones, usamos la transformacion logaritmica para reducir la varianza del modelo y que no nos sesgue el modelo
+# regresion lineal
+# guardar el modelo con una nueva variable
+base.lm <- lm(peso ~ talla, base)# el peso esta relacionado con la talla, y la talla es predictora del peso
+#extraemos los coeficientes (betas)
+betas=coefficients(base.lm); betas
+# el resultado es beta1= 
+
+# coeficiente de determinacion
+summary(base.lm)$r.squared# preguntamos si el peso depende de la talla si se acerca a 1 qiere decir que si, el 78.7% de la variacion en y esta explicada por x
+# la talla de una persona es predictora de su peso se cumple en un 78.7%
+
+# prueba f, para el valor critico de f si es menor a 0.05 se rechaza la ho 
+# puede establecerce si tiene una asociacion distintiva entre x y y bajo la ho que 
+summary(base.lm)
+
+#valores predichos IC95% 
+predict(base.lm, base, interval="predict", level=0.95)
+#los valores int inf, int sup deben ser muy cercanos pero a simple vista se ve que por si solas no, pero en conjunto si se ajustan
+
+# grafico de residuos
+loquesobra <- residuals(base.lm)
+plot(jitter(loquesobra)~ jitter(talla), ylab=" residuos", xlab="talla", data=base)
+abline(0,0,col=2)
+# la grafica muestra un patron sistematico, investigar si esta bien esto
+summary(loquesobra)
+# hacer de tarea la serie indicator
