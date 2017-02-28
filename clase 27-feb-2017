@@ -1,0 +1,59 @@
+############################################################ Clase 27-02-2017
+############################ Tarea
+rm(list=ls())
+library(readxl)
+library(foreign)
+library(haven)
+indicators<-read_excel("C://Users//SALAF-16//Desktop//indicators.xlsx")
+indicators.lm <- lm(gdp_capita ~ co2, indicators)
+betas1=coefficients(indicators.lm); betas1
+summary(indicators.lm)$r.squared
+summary(indicators.lm)
+predict(indicators.lm, indicators, interval="predict", level=0.95)
+loquesobra1 <- residuals(indicators.lm)
+plot(jitter(loquesobra1)~ jitter(co2), ylab=" residuos", xlab="co2", data=indicators)
+abline(0,0,col=2)
+summary(loquesobra1)
+############################## ejemplo ventas ?exmn*********************************************
+ejemplo<-read_excel("C://Users//SALAF-16//Desktop//ejemplo.xlsx")
+ejemplo.ts<- ts(ejemplo, start=c(2012,1), frequency=6)
+plot(ejemplo.ts, xlab="periodo de tiempo", ylab="ventas en millones", main="ventas en millones de euros", col=3)
+ejemplo.desc<- decompose(ejemplo.ts, "additive")
+cycle(ejemplo.ts)# nos da el ciclo de los datos
+boxplot(ejemplo.ts~cycle(ejemplo.ts))# grafica de cajas
+plot(as.ts(ejemplo.desc$seasonal))
+plot(as.ts(ejemplo.desc$trend))
+plot(as.ts(ejemplo.desc$random))
+plot(ejemplo.desc)
+
+par(mfrow=c(1,3))# nos da las 3 graficas juntas 
+plot(ejemplo.desc$seasonal)
+plot(ejemplo.desc$trend)
+plot(ejemplo.desc$random)
+
+# extraer la tendencia con el metodo loose, funcion(stl)
+ejemplo1.ts<-ts(ejemplo[1:24,1], frequency=6, start=c(2012,1))# forma correcta de declarar las ts diciendole bien cuantos vectores y columnas tengo
+class(ejemplo1.ts)# verifico que es ts
+
+ejemplo.stl <- stl(ejemplo1.ts, s.window = "periodic")# s.window = "periodic"<-- todo es periodico
+names(ejemplo.stl)
+ejemplo.stl
+
+ejemplo.tendencia<- ejemplo.stl$time.series[,2]
+ejemplo.tendencia
+
+plot(ejemplo1.ts, col="blue", main="ventas en millones de euros", ylab="valores de la tendencia",xlab="periodo")
+lines(ejemplo.stl$time.series[,2],col=2,ylab="tendencia")
+
+## falta
+#tendencia aislada de la serie, rojo tendencia y azul serie
+
+#ejemplo.tendencia, tarea obtener la media mean() o summary() // estadisticos descriptivos de la serie
+
+
+#### regresion con series de tiempo Yt y una variable predictora
+#fn tslm
+# se usa para adaptar modelos lineales a series temporales incluyendo componentes de tendencia y estacionalidad
+tslm(formula, data,subset,lambda=NULL, biasadj=false,...
+install.packages(forecast)
+library(forecast)
