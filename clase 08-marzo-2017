@@ -1,0 +1,45 @@
+########################################################################### clase 06-03-2017
+library(readxl)
+install.packages("forecast")
+library(forecast)
+consumop<-read_excel("C://Users//SALAF-16//Desktop//ejemplo3.xlsx")
+consumop.ts <- ts(consumop,start=c(1910,1), frequency = 12)
+
+
+########################################################################### clase 08-03-2017
+
+# identificar tendencia Tt con el metodo loess, function(stl)
+consumop.ts <- ts(consumop[1:56,1], frequency = 12, start=c(1910,1), end = c(1915,8))
+class(consumop.ts)
+View(consumop.ts)
+dim(consumop)
+
+consumop.stl <- stl(consumop.ts,s.window = "periodic", robust = T)
+names(consumop.stl)
+consumop.stl
+
+consumop.tend <- consumop.stl$time.series[,2]
+consumop.tend
+
+plot(consumop.ts,col="blue",main="Consumo de productos", ylab = "Tendencia", xlab = "Periodo")
+lines(consumop.stl$time.series[,2],col="red", ylab="Tendencia")
+consumop.descom <- decompose(consumop.ts,"additive")
+
+#eliminar tendencia Tt de yt 
+# se elimina la tendencia porque practicamente no la hay
+consumop.ntend=consumop.ts - consumop.descom$trend
+plot(as.ts(consumop.ntend),col="red")
+
+par(mfrow=c(1,2))
+plot((consumop.ts),col= "blue")
+plot((consumop.ntend), col="red")
+
+####### ajuste estacional
+#nos interesa quitar la estacionalidad porque
+install.packages("fpp")
+library(fpp)
+plot(consumop.ts)
+plot(consumop.stl)
+monthplot(consumop.stl$time.series[, "seasonal"],main="componente estacional por meses")
+plot(consumop.ts,col="black",main="ajuste estacional",xlab="Periodo", ylab="indice estacional")
+lines(seasadj(consumop.stl),col="red", ylab="ajustado")
