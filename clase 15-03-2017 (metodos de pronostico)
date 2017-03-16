@@ -1,0 +1,39 @@
+##################################### Clase 15-Marzo-2017  C:\Users\SALA-F13\Desktop\Series de tiempo
+rm(list=ls())
+install.packages("readxl") 
+library(readxl)
+install.packages("forecast") 
+#require(forecast)
+library(forecast)
+install.packages("fpp")
+#require(fpp)
+library(fpp)
+
+
+ventas <- read_excel("C://Users//SALA-F13//Desktop//Series de tiempo//ejemplo3.xlsx")
+ventas.ts<- ts(ventas,start=c(2010,1), frequency=12)
+plot(ventas.ts,xlab="periodo",ylab="ventas en millones", main="ventas")
+
+#Metodo de la media
+help(meanf)
+#meanf(y,h)
+meanf(ventas.ts,h=10)
+# nos da la media, lim inf al 80%(lo),lim sup del 80%(hi), lim inf al 95%(lo),lim sup del 95%(hi),
+#no sirve de mucho pero es un metodo de pronostico reconocido
+
+#metodo de naive(ingenuo)
+help(naive)
+#naive(y,h) ó rwf(y,h)
+naive(ventas.ts,h=10)
+#naive estacional implica que la serie tiene estacionalidad, de otro modo no correrlo
+snaive(ventas.ts,h=10)
+rwf(ventas.ts,h=10)
+#con cada una de las funciones es diferente porque 
+
+# metodo de deriva(drift)
+#rwf(y,h,drift=TRUE)
+rwf(ventas.ts,h=10,drift=TRUE)
+
+#graficas de pronosticos
+ventas.tsp<-window(ventas.ts,start=c(2010,1), frequency=12)
+plot(ventas.tsp,xlab="periodo",ylab="ventas en millones", main="ventas")
