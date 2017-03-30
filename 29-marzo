@@ -1,0 +1,33 @@
+#######################################################29-marzo-2017
+rm(list=ls())
+install.packages("readxl") 
+library(readxl)
+install.packages("forecast") 
+#require(forecast)
+library(forecast)
+install.packages("fpp")
+#require(fpp)
+library(fpp)
+
+datos<- read_excel("C://Users//SALAF-23//Desktop//base.xlsx")
+consuingreso.ts<-ts(datos)
+View(consuingreso.ts)
+plot(consuingreso.ts)
+regresion<-tslm(consumo~ingresos,data=consuingreso.ts)
+summary(regresion)
+pronosticos.1p<-forecast(regresion,newdata = data.frame(ingresos=c(-1,1)))#da los pronosticos de -1 y 1
+plot(pronosticos.1p)
+summary(pronosticos.1p)
+
+
+############### pronosticos lineales
+datost<- read_excel("C://Users//SALAF-23//Desktop//toneladas.xlsx")
+View(datost)
+datost.ts<-ts(datost)
+plot(datost.ts)
+#                          y       x
+pronosticos.lin<-tslm(datost.ts~trend)
+pronosticos.lin1<-forecast(pronosticos.lin,h=15,level=c(80,95))
+plot(pronosticos.lin1)
+lines(fitted(pronosticos.lin1),col="red")
+summary(pronosticos.lin1)
