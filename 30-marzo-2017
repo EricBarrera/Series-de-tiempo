@@ -1,0 +1,41 @@
+######################################### 30-marzo-2017
+rm(list=ls())
+#install.packages("readxl") 
+library(readxl)
+#install.packages("forecast") 
+#require(forecast)
+library(forecast)
+#install.packages("fpp")
+#require(fpp)
+library(fpp)
+multiple <- read_excel("C://Users//SALAF-23//Desktop//multiple.xlsx")
+windows()
+pairs(multiple[,(1:5)])#grafica la correlacion en forma de matriz
+View(multiple)
+multiple.log <- data.frame(indice=multiple$indice,
+                           log.ahorro=log(multiple$ahorro+1),
+                           log.ingreso=log(multiple$ingreso+1),
+                           log.bienes=log(multiple$bienes+1),
+                           log.servicios=log(multiple$servicios+1))
+pairs(multiple.log[,(1:5)])  
+estimado <- lm(indice~log.ahorro+log.ingreso+log.bienes+log.servicios,data=multiple.log)
+estimado <- step(lm(indice~log.ahorro+log.ingreso+log.bienes+log.servicios,data=multiple.log))
+# corrio 5 regresiones de jalon, el primer aic es el none(modelo nulo(solo evalua los interceptos)) =981.11, despues anido servicios=9.83.07,...,
+# el modelo que mejor ajusta es el nulo=981.11 porque tiene significancia para explicar el modelo
+summary(estimado)
+# al correr el summary vemos que todos tienen significancia para explicar, entonces el modelo nulo es el que mejor ajusta
+
+plot(fitted(estimado),multiple.log$indice,ylab = "indice", xlab = "indice predicho")
+CV(estimado)
+
+### residuos predictores
+estimado <- lm(indice~log.ahorro+log.ingreso+log.bienes+log.servicios,data=multiple.log)
+
+par(mfrow=c(2,2))
+plot(multiple.log$log.ahorro,residuals(estimado),xlab="log(ahorros")
+plot(multiple.log$log.ingreso,residuals(estimado),xlab="log(ingreso")
+plot(multiple.log$log.bienes,residuals(estimado),xlab="log(bienes")
+plot(multiple.log$log.servicios,residuals(estimado),xlab="log(servicios")
+
+# residuos- valores predichos
+plot(fitted(estimado), residuals(estimado),xlab = "indice predicho", ylab = "residuos")
