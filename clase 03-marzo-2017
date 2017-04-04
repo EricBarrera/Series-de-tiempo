@@ -1,0 +1,30 @@
+################################ clase 03-marzo-2017
+rm(list=ls())
+install.packages("readxl") 
+library(readxl)
+install.packages("forecast") 
+#require(forecast)
+library(forecast)
+install.packages("fpp")
+#require(fpp)
+library(fpp)
+compras<-read_excel("C://Users//SALAF-23//Desktop//base.xlsx")
+compras.ts<-ts(compras,start=c(2000),end=c(2013),frequency = 12)
+### vemos si hay estacionalidad fijandonos en los picos, 
+plot(compras.ts, col="blue")
+descompuesta<-decompose(compras.ts,"multiplicative")
+
+plot(descompuesta)
+# descomp con ajuste estacional y de tendencia con la funcion stl
+descompuesta.stl<- stl(compras.ts,t.window = 12,s.window = "periodic")
+plot(descompuesta.stl)
+
+pronosticos<-stl(compras.ts,t.window = 12,s.window = "periodic",robust = T)
+ajustada<-seasadj(pronosticos)
+plot(naive(ajustada))
+
+pronosticos.naive <- forecast(pronosticos,method = "naive")
+plot(pronosticos.naive)
+summary(pronosticos.naive)
+
+
