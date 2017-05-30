@@ -1,0 +1,47 @@
+#################################################################################################
+#Suavizado Exponencial Simple
+#Método propicio para pronosticar datos sin tendencia o patrón estacional.
+
+install.packages("fpp")
+install.packages("readxl")
+library(fpp)
+
+library(readxl)
+ventas <- read_excel("C://Users//SALA-E15//Desktop//ejemplo.xlsx")
+
+ventas.ts <- ts(ventas, start=c(1990))
+plot(ventas.ts, col="blue")
+
+#Prueba de tres distintos niveles de alpha.
+#Note que el modelo "ventas3" no se le indicó el nivel del alpha. ¿Qué implica esto?
+ventas1 <- ses(ventas.ts, alpha=0.25, initial="simple", h=5)
+ventas2 <- ses(ventas.ts, alpha=0.65, initial="simple", h=5)
+ventas3 <- ses(ventas.ts, initial="simple", h=5)
+
+#Graficamos la serie (yt) y los valores suavizados.
+plot(ventas1, ylab="Ventas (Millones de dolares)",
+     xlab="Año", main="Suavizado Exponencial Simple", type="o")
+
+lines(fitted(ventas1), col="blue", type="o")
+lines(fitted(ventas2), col="red", type="o")
+lines(fitted(ventas3), col="green", type="o")
+
+#Incluímos las líneas correspondientes a los pronósticos.
+lines(ventas1$mean, col="blue", type="o")
+lines(ventas2$mean, col="red", type="o")
+lines(ventas3$mean, col="green", type="o")
+
+legend("topleft",lty=1, col=c(1,"blue","red","green"),
+       c("Observados", expression(alpha == 0.25), expression(alpha == 0.65),
+         expression(alpha == estimado)),pch=1)
+
+#Pedimos estadísticos resumen y de ajuste de los modelos estimados. 
+summary(ventas1)
+summary(ventas2)
+summary(ventas3)
+
+#################################################################################################
+#################
+#Holt: exponenciado doble
+#Método propicio para pronosticar datos con tendencia pero sin estacionalidad.
+
