@@ -1,0 +1,104 @@
+install.packages("forecast")
+library(forecast)
+install.packages("readxl")
+library(readxl)
+########################################   INDICADORES DE TASA DE REEMPLAZO   ##############################################################################
+# ACTIVOS DE LOS FONDOS DE PENSIONES PARA MEXICO Y CHILE (AFPM y AFPC) EN  md= MILLONES DE DOLARES y p= PORCENTAJE
+
+afpmexmd<-read_excel("C://Users//hp pc//Desktop//Excel//rtasa de reemp.xlsx", sheet = "AFPMmd")     
+afpchimd<-read_excel("C://Users//hp pc//Desktop//Excel//rtasa de reemp.xlsx", sheet = "AFPCmd")
+afpmexp<-read_excel("C://Users//hp pc//Desktop//Excel//rtasa de reemp.xlsx", sheet = "AFPMp")     
+afpchip<-read_excel("C://Users//hp pc//Desktop//Excel//rtasa de reemp.xlsx", sheet = "AFPCp")
+
+# FONDOS DE PENSIONES PRIVADAS PARA MEXICO Y CHILE (FPPM Y FPPC) EN md= MILLONES DE DOLARES 
+
+fppmexmd<-read_excel("C://Users//hp pc//Desktop//Excel//rtasa de reemp.xlsx", sheet = "FPPMmd")     
+fppchimd<-read_excel("C://Users//hp pc//Desktop//Excel//rtasa de reemp.xlsx", sheet = "FPPCmd")
+
+
+# GASTOS DE SEGUROS PARA MEXICO, CHILE Y EL PROMEDIO DE LA OCDE CON RESPECTO AL PIB
+
+gsmexpib<-read_excel("C://Users//hp pc//Desktop//Excel//rtasa de reemp.xlsx", sheet = "GSMp")     
+gschipib<-read_excel("C://Users//hp pc//Desktop//Excel//rtasa de reemp.xlsx", sheet = "GSCp")
+gsocdepib<-read_excel("C://Users//hp pc//Desktop//Excel//rtasa de reemp.xlsx", sheet = "GSOp")
+
+##############################################  INDICADORES DE EMPLEO   ##############################################################
+
+# CONTRIBUCIONES A LA SEGURIDAD SOCIAL PARA MEXICO, CHILE Y EL PROM DE LA OCDE EN pp= porcentaje del PIB y pi= porcentaje de impuestos
+cssmexpp<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "CSSMpp")
+csschipp<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "CSSCpp")
+cssocdepp<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "CSSOpp")
+
+cssmexpi<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "CSSMpi")
+csschipi<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "CSSCpi")
+cssocdepi<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "CSSOpi")
+
+# NIVELES SALARIALES PARA BAJO Y ALTO SUELDO, PARA MEXICO Y CHILE EN p= porcentaje
+
+nsbsmexp<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "NSBSMp")
+nsbschip<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "NSBSCp")
+
+nsasmexp<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "NSASMp")
+nsaschip<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "NSASCp")
+
+# PROMEDIOS SALARIALES PARA MEXICO Y CHILE EN usd= dolarea norteamericanos
+
+psmexusd<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "PSMusd")
+pschiusd<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "PSCusd")
+
+# TASA DE DESEMPLETO TOTAL, POR HOMBRES Y MUJERES PARA MEX, CHILE Y PROM DE LA OCDE EN pt= porcentaje de trabajo
+
+tdtmexpt<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "TDTMpt")
+tdtchipt<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "TDTCpt")
+tdtocdept<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "TDTOpt")
+
+tdhmexpt<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "TDHMpt")
+tdhchipt<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "TDHCpt")
+tdhocdept<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "TDHOpt")
+
+tdmmexpt<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "TDMMpt")
+tdmchipt<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "TDMCpt")
+tdmocdept<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "TDMOpt")
+
+# TASA DE EMPLETO TOTAL, POR HOMBRES Y MUJERES PARA MEX, CHILE Y PROM DE LA OCDE EN mpe= miles de personas
+
+tetmexmpe<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "TETMmpe")
+tetchimpe<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "TETCmpe")
+tetocdempe<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "TETOmpe")
+
+tehmexmpe<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "TEHMmpe")
+tehchimpe<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "TEHCmpe")
+tehocdempe<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "TEHOmpe")
+
+temmexmpe<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "TEMMmpe")
+temchimpe<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "TEMCmpe")
+temocdempe<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "TEMOmpe")
+
+########################################    INDICADORES DE POBLACION   ##############################################################################
+
+# POBLACION EN EDAD LABORAL PARA MEX, CHILE Y PROM OCDE EN ppo= porcentaje de la población
+
+pelmexppo<-read_excel("C://Users//hp pc//Desktop//Excel//rpoblacion.xlsx", sheet = "PELMppo")
+pelchippo<-read_excel("C://Users//hp pc//Desktop//Excel//rpoblacion.xlsx", sheet = "PELCppo")
+pelocdeppo<-read_excel("C://Users//hp pc//Desktop//Excel//rpoblacion.xlsx", sheet = "PELOppo")
+
+# POBLACION JOVEN PARA MEX, CHILE Y PROM OCDE EN ppo= porcentaje de la población
+
+pjmexppo<-read_excel("C://Users//hp pc//Desktop//Excel//rpoblacion.xlsx", sheet = "PJMppo")
+pjchippo<-read_excel("C://Users//hp pc//Desktop//Excel//rpoblacion.xlsx", sheet = "PJCppo")
+pjocdeppo<-read_excel("C://Users//hp pc//Desktop//Excel//rpoblacion.xlsx", sheet = "PJOppo")
+
+# POBLACION VIEJA PARA MEX Y CHILE EN ppo= porcentaje de la población
+
+pvmexppo<-read_excel("C://Users//hp pc//Desktop//Excel//rpoblacion.xlsx", sheet = "PVMppo")
+pvchippo<-read_excel("C://Users//hp pc//Desktop//Excel//rpoblacion.xlsx", sheet = "PVCppo")
+
+# TASA DE FECUNDIDAD PARA MEX, CHILE Y PROM OCDE EN nm= niños por mujer
+
+tfmexnm<-read_excel("C://Users//hp pc//Desktop//Excel//rpoblacion.xlsx", sheet = "TFMnm")
+tfchinm<-read_excel("C://Users//hp pc//Desktop//Excel//rpoblacion.xlsx", sheet = "TFCnm")
+tfocdenm<-read_excel("C://Users//hp pc//Desktop//Excel//rpoblacion.xlsx", sheet = "TFOnm")
+
+
+
+#actfp.ts<- ts(tasareem, data = x__1)
