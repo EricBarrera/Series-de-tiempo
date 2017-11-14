@@ -1,0 +1,676 @@
+install.packages("forecast")
+library(forecast)
+install.packages("readxl")
+library(readxl)
+########################################   INDICADORES DE TASA DE REEMPLAZO   ##############################################################################
+# ACTIVOS DE LOS FONDOS DE PENSIONES PARA MEXICO Y CHILE (AFPM y AFPC) EN  md= MILLONES DE DOLARES y p= PORCENTAJE
+
+afpmexmd<-read_excel("C://Users//hp pc//Desktop//Excel//rtasa de reemp.xlsx", sheet = "AFPMmd")     #2001-2015
+afpchimd<-read_excel("C://Users//hp pc//Desktop//Excel//rtasa de reemp.xlsx", sheet = "AFPCmd")
+#
+afpmexmd.ts<-ts(afpmexmd, start=2001, end=2015, frequency=2)
+plot(afpmexmd.ts)
+afpchimd.ts<-ts(afpchimd, start=2001, end=2015, frequency=2)
+plot(afpchimd.ts)
+afpmexmd.ts.decom <-decompose(afpmexmd.ts)
+plot(as.ts(afpmexmd.ts.decom$seasonal))
+plot(as.ts(afpmexmd.ts.decom$trend))
+plot(as.ts(afpmexmd.ts.decom$random))
+par(mfrow=c(3,1))
+plot(afpmexmd.ts.decom$seasonal)
+plot(afpmexmd.ts.decom$trend)
+plot(afpmexmd.ts.decom$random)
+
+afpchimd.ts.decom <-decompose(afpchimd.ts)
+plot(as.ts(afpchimd.ts.decom$seasonal))
+plot(as.ts(afpchimd.ts.decom$trend))
+plot(as.ts(afpchimd.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(afpchimd.ts.decom$seasonal)
+plot(afpchimd.ts.decom$trend)
+plot(afpchimd.ts.decom$random)
+#
+
+afpmexp<-read_excel("C://Users//hp pc//Desktop//Excel//rtasa de reemp.xlsx", sheet = "AFPMp")       #2001-2015
+afpchip<-read_excel("C://Users//hp pc//Desktop//Excel//rtasa de reemp.xlsx", sheet = "AFPCp")       
+#
+afpmexp.ts<-ts(afpmexp, start=2001, end=2015, frequency=2)
+plot(afpmexp.ts)
+afpchip.ts<-ts(afpchip, start=2001, end=2015, frequency=2)
+plot(afpchip.ts)
+
+afpmexp.ts.decom <-decompose(afpmexp.ts)
+plot(as.ts(afpmexp.ts.decom$seasonal))
+plot(as.ts(afpmexp.ts.decom$trend))
+plot(as.ts(afpmexp.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(afpmexp.ts.decom$seasonal)
+plot(afpmexp.ts.decom$trend)
+plot(afpmexp.ts.decom$random)
+
+afpchip.ts.decom <-decompose(afpchip.ts)
+plot(as.ts(afpchip.ts.decom$seasonal))
+plot(as.ts(afpchip.ts.decom$trend))
+plot(as.ts(afpchip.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(afpchip.ts.decom$seasonal)
+plot(afpchip.ts.decom$trend)
+plot(afpchip.ts.decom$random)
+#
+
+# FONDOS DE PENSIONES PRIVADAS PARA MEXICO Y CHILE (FPPM Y FPPC) EN md= MILLONES DE DOLARES 
+
+fppmexmd<-read_excel("C://Users//hp pc//Desktop//Excel//rtasa de reemp.xlsx", sheet = "FPPMmd")     #2001-2015  
+fppchimd<-read_excel("C://Users//hp pc//Desktop//Excel//rtasa de reemp.xlsx", sheet = "FPPCmd")     
+fppmexmd.ts<-ts(fppmexmd, start=2001, end=2015, frequency=2)
+plot(fppmexmd.ts)
+fppchimd.ts<-ts(fppchimd, start=2001, end=2015, frequency=2)
+plot(fppchimd.ts)
+
+fppmexmd.ts.decom <-decompose(fppmexmd.ts)
+plot(as.ts(fppmexmd.ts.decom$seasonal))
+plot(as.ts(fppmexmd.ts.decom$trend))
+plot(as.ts(fppmexmd.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(fppmexmd.ts.decom$seasonal)
+plot(fppmexmd.ts.decom$trend)
+plot(fppmexmd.ts.decom$random)
+
+fppchimd.ts.decom <-decompose(fppchimd.ts)
+plot(as.ts(fppchimd.ts.decom$seasonal))
+plot(as.ts(fppchimd.ts.decom$trend))
+plot(as.ts(fppchimd.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(fppchimd.ts.decom$seasonal)
+plot(fppchimd.ts.decom$trend)
+plot(fppchimd.ts.decom$random)
+
+# GASTOS DE SEGUROS PARA MEXICO, CHILE Y EL PROMEDIO DE LA OCDE CON RESPECTO AL PIB
+
+gsmexpib<-read_excel("C://Users//hp pc//Desktop//Excel//rtasa de reemp.xlsx", sheet = "GSMp")       #1992-2015
+gschipib<-read_excel("C://Users//hp pc//Desktop//Excel//rtasa de reemp.xlsx", sheet = "GSCp")       #2006-2015
+gsocdepib<-read_excel("C://Users//hp pc//Desktop//Excel//rtasa de reemp.xlsx", sheet = "GSOp")      #1983-2015
+gsmexpib.ts<-ts(gsmexpib, start=1992, end=2015, frequency=2)
+plot(gsmexpib.ts)
+gschipib.ts<-ts(gschipib, start=2006, end=2015, frequency=2)
+plot(gschipib.ts)
+gsocdepib.ts<-ts(gsocdepib, start=1983, end=2015, frequency=2)
+plot(gsocdepib.ts)
+
+gsmexpib.ts.decom <-decompose(gsmexpib.ts)
+plot(as.ts(gsmexpib.ts.decom$seasonal))
+plot(as.ts(gsmexpib.ts.decom$trend))
+plot(as.ts(gsmexpib.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(gsmexpib.ts.decom$seasonal)
+plot(gsmexpib.ts.decom$trend)
+plot(gsmexpib.ts.decom$random)
+
+gschipib.ts.decom <-decompose(gschipib.ts)
+plot(as.ts(gschipib.ts.decom$seasonal))
+plot(as.ts(gschipib.ts.decom$trend))
+plot(as.ts(gschipib.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(gschipib.ts.decom$seasonal)
+plot(gschipib.ts.decom$trend)
+plot(gschipib.ts.decom$random)
+
+gsocdepib.ts.decom <-decompose(gsocdepib.ts)
+plot(as.ts(gsocdepib.ts.decom$seasonal))
+plot(as.ts(gsocdepib.ts.decom$trend))
+plot(as.ts(gsocdepib.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(gsocdepib.ts.decom$seasonal)
+plot(gsocdepib.ts.decom$trend)
+plot(gsocdepib.ts.decom$random)
+
+##############################################  INDICADORES DE EMPLEO   ##############################################################
+
+# CONTRIBUCIONES A LA SEGURIDAD SOCIAL PARA MEXICO, CHILE Y EL PROM DE LA OCDE EN pp= porcentaje del PIB y pi= porcentaje de impuestos
+cssmexpp<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "CSSMpp")          #1980-2015
+csschipp<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "CSSCpp")          #1990-2015
+cssocdepp<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "CSSOpp")         #1965-2014
+cssmexpp.ts<-ts(cssmexpp, start=1980, end=2015, frequency=2)
+plot(cssmexpp.ts)
+csschipp.ts<-ts(csschipp, start=1990, end=2015, frequency=2)
+plot(csschipp.ts)
+cssocdepp.ts<-ts(cssocdepp, start=1965, end=2014, frequency=2)
+plot(cssocdepp.ts)
+
+cssmexpp.ts.decom <-decompose(cssmexpp.ts)
+plot(as.ts(cssmexpp.ts.decom$seasonal))
+plot(as.ts(cssmexpp.ts.decom$trend))
+plot(as.ts(cssmexpp.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(cssmexpp.ts.decom$seasonal)
+plot(cssmexpp.ts.decom$trend)
+plot(cssmexpp.ts.decom$random)
+
+csschipp.ts.decom <-decompose(csschipp.ts)
+plot(as.ts(csschipp.ts.decom$seasonal))
+plot(as.ts(csschipp.ts.decom$trend))
+plot(as.ts(csschipp.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(csschipp.ts.decom$seasonal)
+plot(csschipp.ts.decom$trend)
+plot(csschipp.ts.decom$random)
+
+cssocdepp.ts.decom <-decompose(cssocdepp.ts)
+plot(as.ts(cssocdepp.ts.decom$seasonal))
+plot(as.ts(cssocdepp.ts.decom$trend))
+plot(as.ts(cssocdepp.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(cssocdepp.ts.decom$seasonal)
+plot(cssocdepp.ts.decom$trend)
+plot(cssocdepp.ts.decom$random)
+
+cssmexpi<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "CSSMpi")          #1980-2014 
+csschipi<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "CSSCpi")          #1990-2015
+cssocdepi<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "CSSOpi")         #1965-2014
+cssmexpi.ts<-ts(cssmexpi, start=1980, end=2014, frequency=2)
+plot(cssmexpi.ts)
+csschipi.ts<-ts(csschipi, start=1990, end=2015, frequency=2)
+plot(csschipi.ts)
+cssocdepi.ts<-ts(cssocdepi, start=1965, end=2014, frequency=2)
+plot(cssocdepi.ts)
+
+cssmexpi.ts.decom <-decompose(cssmexpi.ts)
+plot(as.ts(cssmexpi.ts.decom$seasonal))
+plot(as.ts(cssmexpi.ts.decom$trend))
+plot(as.ts(cssmexpi.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(cssmexpi.ts.decom$seasonal)
+plot(cssmexpi.ts.decom$trend)
+plot(cssmexpi.ts.decom$random)
+
+csschipi.ts.decom <-decompose(csschipi.ts)
+plot(as.ts(csschipi.ts.decom$seasonal))
+plot(as.ts(csschipi.ts.decom$trend))
+plot(as.ts(csschipi.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(csschipi.ts.decom$seasonal)
+plot(csschipi.ts.decom$trend)
+plot(csschipi.ts.decom$random)
+
+cssocdepi.ts.decom <-decompose(cssocdepi.ts)
+plot(as.ts(cssocdepi.ts.decom$seasonal))
+plot(as.ts(cssocdepi.ts.decom$trend))
+plot(as.ts(cssocdepi.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(cssocdepi.ts.decom$seasonal)
+plot(cssocdepi.ts.decom$trend)
+plot(cssocdepi.ts.decom$random)
+
+# NIVELES SALARIALES PARA BAJO Y ALTO SUELDO, PARA MEXICO Y CHILE EN p= porcentaje
+
+nsbsmexp<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "NSBSMp")          #2005-2016
+nsbschip<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "NSBSCp")          #2000-2015
+nsbsmexp.ts<-ts(nsbsmexp, start=2005, end=2016, frequency=2)
+plot(nsbsmexp.ts)
+nsbschip.ts<-ts(nsbschip, start=2000, end=2015, frequency=2)
+plot(nsbschip.ts)
+
+nsbsmexp.ts.decom <-decompose(nsbsmexp.ts)
+plot(as.ts(nsbsmexp.ts.decom$seasonal))
+plot(as.ts(nsbsmexp.ts.decom$trend))
+plot(as.ts(nsbsmexp.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(nsbsmexp.ts.decom$seasonal)
+plot(nsbsmexp.ts.decom$trend)
+plot(nsbsmexp.ts.decom$random)
+
+nsbschip.ts.decom <-decompose(nsbschip.ts)
+plot(as.ts(nsbschip.ts.decom$seasonal))
+plot(as.ts(nsbschip.ts.decom$trend))
+plot(as.ts(nsbschip.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(nsbschip.ts.decom$seasonal)
+plot(nsbschip.ts.decom$trend)
+plot(nsbschip.ts.decom$random)
+
+nsasmexp<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "NSASMp")          #2000-2016
+nsaschip<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "NSASCp")          
+nsasmexp.ts<-ts(nsasmexp, start=2005, end=2016, frequency=2)
+plot(nsasmexp.ts)
+nsaschip.ts<-ts(nsaschip, start=2000, end=2015, frequency=2)
+plot(nsaschip.ts)
+
+nsasmexp.ts.decom <-decompose(nsasmexp.ts)
+plot(as.ts(nsasmexp.ts.decom$seasonal))
+plot(as.ts(nsasmexp.ts.decom$trend))
+plot(as.ts(nsasmexp.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(nsasmexp.ts.decom$seasonal)
+plot(nsasmexp.ts.decom$trend)
+plot(nsasmexp.ts.decom$random)
+
+nsaschip.ts.decom <-decompose(nsaschip.ts)
+plot(as.ts(nsaschip.ts.decom$seasonal))
+plot(as.ts(nsaschip.ts.decom$trend))
+plot(as.ts(nsaschip.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(nsaschip.ts.decom$seasonal)
+plot(nsaschip.ts.decom$trend)
+plot(nsaschip.ts.decom$random)
+
+# PROMEDIOS SALARIALES PARA MEXICO Y CHILE EN usd= dolares norteamericanos
+
+psmexusd<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "PSMusd")          #1990-2016
+pschiusd<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "PSCusd")          #1996-2016
+psmexusd.ts<-ts(psmexusd, start=1990, end=2016, frequency=2)
+plot(psmexusd.ts)
+pschiusd.ts<-ts(pschiusd, start=1996, end=2016, frequency=2)
+plot(pschiusd.ts)
+
+psmexusd.ts.decom <-decompose(psmexusd.ts)
+plot(as.ts(psmexusd.ts.decom$seasonal))
+plot(as.ts(psmexusd.ts.decom$trend))
+plot(as.ts(psmexusd.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(psmexusd.ts.decom$seasonal)
+plot(psmexusd.ts.decom$trend)
+plot(psmexusd.ts.decom$random)
+
+pschiusd.ts.decom <-decompose(pschiusd.ts)
+plot(as.ts(pschiusd.ts.decom$seasonal))
+plot(as.ts(pschiusd.ts.decom$trend))
+plot(as.ts(pschiusd.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(pschiusd.ts.decom$seasonal)
+plot(pschiusd.ts.decom$trend)
+plot(pschiusd.ts.decom$random)
+
+# TASA DE DESEMPLETO TOTAL, POR HOMBRES Y MUJERES PARA MEX, CHILE Y PROM DE LA OCDE EN pt= porcentaje de trabajo
+
+tdtmexpt<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "TDTMpt")          #1987-2016
+tdtchipt<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "TDTCpt")          #1986-2016
+tdtocdept<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "TDTOpt")         #2005-2016
+tdtmexpt.ts<-ts(tdtmexpt, start=1987, end=2016, frequency=2)
+plot(tdtmexpt.ts)
+tdtchipt.ts<-ts(tdtchipt, start=1986, end=2016, frequency=2)
+plot(tdtchipt.ts)
+tdtocdept.ts<-ts(tdtocdept, start=2005, end=2016, frequency=2)
+plot(tdtocdept.ts)
+
+tdtmexpt.ts.decom <-decompose(tdtmexpt.ts)
+plot(as.ts(tdtmexpt.ts.decom$seasonal))
+plot(as.ts(tdtmexpt.ts.decom$trend))
+plot(as.ts(tdtmexpt.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(tdtmexpt.ts.decom$seasonal)
+plot(tdtmexpt.ts.decom$trend)
+plot(tdtmexpt.ts.decom$random)
+
+tdtchipt.ts.decom <-decompose(tdtchipt.ts)
+plot(as.ts(tdtchipt.ts.decom$seasonal))
+plot(as.ts(tdtchipt.ts.decom$trend))
+plot(as.ts(tdtchipt.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(tdtchipt.ts.decom$seasonal)
+plot(tdtchipt.ts.decom$trend)
+plot(tdtchipt.ts.decom$random)
+
+tdtocdept.ts.decom <-decompose(tdtocdept.ts)
+plot(as.ts(tdtocdept.ts.decom$seasonal))
+plot(as.ts(tdtocdept.ts.decom$trend))
+plot(as.ts(tdtocdept.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(tdtocdept.ts.decom$seasonal)
+plot(tdtocdept.ts.decom$trend)
+plot(tdtocdept.ts.decom$random)
+
+tdhmexpt<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "TDHMpt")          #2001-2016
+tdhchipt<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "TDHCpt")          #1986-2016
+tdhocdept<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "TDHOpt")         #2005-2016
+tdhmexpt.ts<-ts(tdhmexpt, start=2001, end=2016, frequency=2)
+plot(tdhmexpt.ts)
+tdhchipt.ts<-ts(tdhchipt, start=1986, end=2016, frequency=2)
+plot(tdhchipt.ts)
+tdhocdept.ts<-ts(tdhocdept, start=2005, end=2016, frequency=2)
+plot(tdhocdept.ts)
+
+tdhmexpt.ts.decom <-decompose(tdhmexpt.ts)
+plot(as.ts(tdhmexpt.ts.decom$seasonal))
+plot(as.ts(tdhmexpt.ts.decom$trend))
+plot(as.ts(tdhmexpt.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(tdhmexpt.ts.decom$seasonal)
+plot(tdhmexpt.ts.decom$trend)
+plot(tdhmexpt.ts.decom$random)
+
+tdhchipt.ts.decom <-decompose(tdhchipt.ts)
+plot(as.ts(tdhchipt.ts.decom$seasonal))
+plot(as.ts(tdhchipt.ts.decom$trend))
+plot(as.ts(tdhchipt.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(tdhchipt.ts.decom$seasonal)
+plot(tdhchipt.ts.decom$trend)
+plot(tdhchipt.ts.decom$random)
+
+tdhocdept.ts.decom <-decompose(tdhocdept.ts)
+plot(as.ts(tdhocdept.ts.decom$seasonal))
+plot(as.ts(tdhocdept.ts.decom$trend))
+plot(as.ts(tdhocdept.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(tdhocdept.ts.decom$seasonal)
+plot(tdhocdept.ts.decom$trend)
+plot(tdhocdept.ts.decom$random)
+
+tdmmexpt<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "TDMMpt")          #2005-2016
+tdmchipt<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "TDMCpt")          #1986-2016
+tdmocdept<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "TDMOpt")         #2005-2016
+tdmmexpt.ts<-ts(tdmmexpt, start=2005, end=2016, frequency=2)
+plot(tdmmexpt.ts)
+tdmchipt.ts<-ts(tdmchipt, start=1986, end=2016, frequency=2)
+plot(tdmchipt.ts)
+tdmocdept.ts<-ts(tdmocdept, start=2005, end=2016, frequency=2)
+plot(tdmocdept.ts)
+
+tdmmexpt.ts.decom <-decompose(tdmmexpt.ts)
+plot(as.ts(tdmmexpt.ts.decom$seasonal))
+plot(as.ts(tdmmexpt.ts.decom$trend))
+plot(as.ts(tdmmexpt.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(tdmmexpt.ts.decom$seasonal)
+plot(tdmmexpt.ts.decom$trend)
+plot(tdmmexpt.ts.decom$random)
+
+tdmchipt.ts.decom <-decompose(tdmchipt.ts)
+plot(as.ts(tdmchipt.ts.decom$seasonal))
+plot(as.ts(tdmchipt.ts.decom$trend))
+plot(as.ts(tdmchipt.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(tdmchipt.ts.decom$seasonal)
+plot(tdmchipt.ts.decom$trend)
+plot(tdmchipt.ts.decom$random)
+
+tdmocdept.ts.decom <-decompose(tdmocdept.ts)
+plot(as.ts(tdmocdept.ts.decom$seasonal))
+plot(as.ts(tdmocdept.ts.decom$trend))
+plot(as.ts(tdmocdept.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(tdmocdept.ts.decom$seasonal)
+plot(tdmocdept.ts.decom$trend)
+plot(tdmocdept.ts.decom$random)
+
+# TASA DE EMPLETO TOTAL, POR HOMBRES Y MUJERES PARA MEX, CHILE Y PROM DE LA OCDE EN mpe= miles de personas
+
+tetmexmpe<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "TETMmpe")        #1990-2016
+tetchimpe<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "TETCmpe")        #1986-2016
+tetocdempe<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "TETOmpe")       #1998-2016
+tetmexmpe.ts<-ts(tetmexmpe, start=1990, end=2016, frequency=2)
+plot(tetmexmpe.ts)
+tetchimpe.ts<-ts(tetchimpe, start=1986, end=2016, frequency=2)
+plot(tetchimpe.ts)
+tetocdempe.ts<-ts(tetocdempe, start=1998, end=2016, frequency=2)
+plot(tetocdempe.ts)
+
+tetmexmpe.ts.decom <-decompose(tetmexmpe.ts)
+plot(as.ts(tetmexmpe.ts.decom$seasonal))
+plot(as.ts(tetmexmpe.ts.decom$trend))
+plot(as.ts(tetmexmpe.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(tetmexmpe.ts.decom$seasonal)
+plot(tetmexmpe.ts.decom$trend)
+plot(tetmexmpe.ts.decom$random)
+
+tetchimpe.ts.decom <-decompose(tetchimpe.ts)
+plot(as.ts(tetchimpe.ts.decom$seasonal))
+plot(as.ts(tetchimpe.ts.decom$trend))
+plot(as.ts(tetchimpe.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(tetchimpe.ts.decom$seasonal)
+plot(tetchimpe.ts.decom$trend)
+plot(tetchimpe.ts.decom$random)
+
+tetocdempe.ts.decom <-decompose(tetocdempe.ts)
+plot(as.ts(tetocdempe.ts.decom$seasonal))
+plot(as.ts(tetocdempe.ts.decom$trend))
+plot(as.ts(tetocdempe.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(tetocdempe.ts.decom$seasonal)
+plot(tetocdempe.ts.decom$trend)
+plot(tetocdempe.ts.decom$random)
+
+tehmexmpe<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "TEHMmpe")        #1990-2016
+tehchimpe<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "TEHCmpe")        #1986-2016
+tehocdempe<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "TEHOmpe")       #2005-2016
+tehmexmpe.ts<-ts(tehmexmpe, start=1990, end=2016, frequency=2)
+plot(tehmexmpe.ts)
+tehchimpe.ts<-ts(tehchimpe, start=1986, end=2016, frequency=2)
+plot(tehchimpe.ts)
+tehocdempe.ts<-ts(tehocdempe, start=2005, end=2016, frequency=2)
+plot(tehocdempe.ts)
+
+tehmexmpe.ts.decom <-decompose(tehmexmpe.ts)
+plot(as.ts(tehmexmpe.ts.decom$seasonal))
+plot(as.ts(tehmexmpe.ts.decom$trend))
+plot(as.ts(tehmexmpe.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(tehmexmpe.ts.decom$seasonal)
+plot(tehmexmpe.ts.decom$trend)
+plot(tehmexmpe.ts.decom$random)
+
+tehchimpe.ts.decom <-decompose(tehchimpe.ts)
+plot(as.ts(tehchimpe.ts.decom$seasonal))
+plot(as.ts(tehchimpe.ts.decom$trend))
+plot(as.ts(tehchimpe.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(tehchimpe.ts.decom$seasonal)
+plot(tehchimpe.ts.decom$trend)
+plot(tehchimpe.ts.decom$random)
+
+tehocdempe.ts.decom <-decompose(tehocdempe.ts)
+plot(as.ts(tehocdempe.ts.decom$seasonal))
+plot(as.ts(tehocdempe.ts.decom$trend))
+plot(as.ts(tehocdempe.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(tehocdempe.ts.decom$seasonal)
+plot(tehocdempe.ts.decom$trend)
+plot(tehocdempe.ts.decom$random)
+
+temmexmpe<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "TEMMmpe")        #1990-2016
+temchimpe<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "TEMCmpe")        #1986-2016
+temocdempe<-read_excel("C://Users//hp pc//Desktop//Excel//rempleo.xlsx", sheet = "TEMOmpe")       #2005-2016
+temmexmpe.ts<-ts(temmexmpe, start=1990, end=2016, frequency=2)
+plot(temmexmpe.ts)
+temchimpe.ts<-ts(temchimpe, start=1986, end=2016, frequency=2)
+plot(temchimpe.ts)
+temocdempe.ts<-ts(temocdempe, start=2005, end=2016, frequency=2)
+plot(temocdempe.ts)
+
+temmexmpe.ts.decom <-decompose(temmexmpe.ts)
+plot(as.ts(temmexmpe.ts.decom$seasonal))
+plot(as.ts(temmexmpe.ts.decom$trend))
+plot(as.ts(temmexmpe.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(temmexmpe.ts.decom$seasonal)
+plot(temmexmpe.ts.decom$trend)
+plot(temmexmpe.ts.decom$random)
+
+temchimpe.ts.decom <-decompose(temchimpe.ts)
+plot(as.ts(temchimpe.ts.decom$seasonal))
+plot(as.ts(temchimpe.ts.decom$trend))
+plot(as.ts(temchimpe.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(temchimpe.ts.decom$seasonal)
+plot(temchimpe.ts.decom$trend)
+plot(temchimpe.ts.decom$random)
+
+temocdempe.ts.decom <-decompose(temocdempe.ts)
+plot(as.ts(temocdempe.ts.decom$seasonal))
+plot(as.ts(temocdempe.ts.decom$trend))
+plot(as.ts(temocdempe.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(temocdempe.ts.decom$seasonal)
+plot(temocdempe.ts.decom$trend)
+plot(temocdempe.ts.decom$random)
+
+
+########################################    INDICADORES DE POBLACION   ##############################################################################
+
+# POBLACION EN EDAD LABORAL PARA MEX, CHILE Y PROM OCDE EN ppo= porcentaje de la población
+
+pelmexppo<-read_excel("C://Users//hp pc//Desktop//Excel//rpoblacion.xlsx", sheet = "PELMppo")     #1970-2014
+pelchippo<-read_excel("C://Users//hp pc//Desktop//Excel//rpoblacion.xlsx", sheet = "PELCppo")     #1956-2014
+pelocdeppo<-read_excel("C://Users//hp pc//Desktop//Excel//rpoblacion.xlsx", sheet = "PELOppo")    #1971-2012
+pelmexppo.ts<-ts(pelmexppo, start=1970, end=2014, frequency=2)
+plot(pelmexppo.ts)
+pelchippo.ts<-ts(pelchippo, start=1956, end=2014, frequency=2)
+plot(pelchippo.ts)
+pelocdeppo.ts<-ts(pelocdeppo, start=1971, end=2012, frequency=2)
+plot(pelocdeppo.ts)
+
+pelmexppo.ts.decom <-decompose(pelmexppo.ts)
+plot(as.ts(pelmexppo.ts.decom$seasonal))
+plot(as.ts(pelmexppo.ts.decom$trend))
+plot(as.ts(pelmexppo.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(pelmexppo.ts.decom$seasonal)
+plot(pelmexppo.ts.decom$trend)
+plot(pelmexppo.ts.decom$random)
+
+pelchippo.ts.decom <-decompose(pelchippo.ts)
+plot(as.ts(pelchippo.ts.decom$seasonal))
+plot(as.ts(pelchippo.ts.decom$trend))
+plot(as.ts(pelchippo.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(pelchippo.ts.decom$seasonal)
+plot(pelchippo.ts.decom$trend)
+plot(pelchippo.ts.decom$random)
+
+pelocdeppo.ts.decom <-decompose(pelocdeppo.ts)
+plot(as.ts(pelocdeppo.ts.decom$seasonal))
+plot(as.ts(pelocdeppo.ts.decom$trend))
+plot(as.ts(pelocdeppo.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(pelocdeppo.ts.decom$seasonal)
+plot(pelocdeppo.ts.decom$trend)
+plot(pelocdeppo.ts.decom$random)
+
+# POBLACION JOVEN PARA MEX, CHILE Y PROM OCDE EN ppo= porcentaje de la población
+
+pjmexppo<-read_excel("C://Users//hp pc//Desktop//Excel//rpoblacion.xlsx", sheet = "PJMppo")       #1970-2014
+pjchippo<-read_excel("C://Users//hp pc//Desktop//Excel//rpoblacion.xlsx", sheet = "PJCppo")       #1956-2014
+pjocdeppo<-read_excel("C://Users//hp pc//Desktop//Excel//rpoblacion.xlsx", sheet = "PJOppo")      #1971-2012
+pjmexppo.ts<-ts(pjmexppo, start=1970, end=2014, frequency=2)
+plot(pjmexppo.ts)
+pjchippo.ts<-ts(pjchippo, start=1956, end=2014, frequency=2)
+plot(pjchippo.ts)
+pjocdeppo.ts<-ts(pjocdeppo, start=1971, end=2012, frequency=2)
+plot(pjocdeppo.ts)
+
+pjmexppo.ts.decom <-decompose(pjmexppo.ts)
+plot(as.ts(pjmexppo.ts.decom$seasonal))
+plot(as.ts(pjmexppo.ts.decom$trend))
+plot(as.ts(pjmexppo.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(pjmexppo.ts.decom$seasonal)
+plot(pjmexppo.ts.decom$trend)
+plot(pjmexppo.ts.decom$random)
+
+pjchippo.ts.decom <-decompose(pjchippo.ts)
+plot(as.ts(pjchippo.ts.decom$seasonal))
+plot(as.ts(pjchippo.ts.decom$trend))
+plot(as.ts(pjchippo.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(pjchippo.ts.decom$seasonal)
+plot(pjchippo.ts.decom$trend)
+plot(pjchippo.ts.decom$random)
+
+pjocdeppo.ts.decom <-decompose(pjocdeppo.ts)
+plot(as.ts(pjocdeppo.ts.decom$seasonal))
+plot(as.ts(pjocdeppo.ts.decom$trend))
+plot(as.ts(pjocdeppo.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(pjocdeppo.ts.decom$seasonal)
+plot(pjocdeppo.ts.decom$trend)
+plot(pjocdeppo.ts.decom$random)
+
+# POBLACION VIEJA PARA MEX Y CHILE EN ppo= porcentaje de la población
+
+pvmexppo<-read_excel("C://Users//hp pc//Desktop//Excel//rpoblacion.xlsx", sheet = "PVMppo")       #1970-2014
+pvchippo<-read_excel("C://Users//hp pc//Desktop//Excel//rpoblacion.xlsx", sheet = "PVCppo")       #1956-2014
+pvmexppo.ts<-ts(pvmexppo, start=1970, end=2014, frequency=2)
+plot(pvmexppo.ts)
+pvchippo.ts<-ts(pvchippo, start=1956, end=2014, frequency=2)
+plot(pvchippo.ts)
+
+pvmexppo.ts.decom <-decompose(pvmexppo.ts)
+plot(as.ts(pvmexppo.ts.decom$seasonal))
+plot(as.ts(pvmexppo.ts.decom$trend))
+plot(as.ts(pvmexppo.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(pvmexppo.ts.decom$seasonal)
+plot(pvmexppo.ts.decom$trend)
+plot(pvmexppo.ts.decom$random)
+
+pvchippo.ts.decom <-decompose(pvchippo.ts)
+plot(as.ts(pvchippo.ts.decom$seasonal))
+plot(as.ts(pvchippo.ts.decom$trend))
+plot(as.ts(pvchippo.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(pvchippo.ts.decom$seasonal)
+plot(pvchippo.ts.decom$trend)
+plot(pvchippo.ts.decom$random)
+
+
+# TASA DE FECUNDIDAD PARA MEX, CHILE Y PROM OCDE EN nm= niños por mujer
+
+tfmexnm<-read_excel("C://Users//hp pc//Desktop//Excel//rpoblacion.xlsx", sheet = "TFMnm")         #1960-2015
+tfchinm<-read_excel("C://Users//hp pc//Desktop//Excel//rpoblacion.xlsx", sheet = "TFCnm")         #1960-2015
+tfocdenm<-read_excel("C://Users//hp pc//Desktop//Excel//rpoblacion.xlsx", sheet = "TFOnm")        #1960-2013
+tfmexnm.ts<-ts(tfmexnm, start=1960, end=2015, frequency=2)
+plot(tfmexnm.ts)
+tfchinm.ts<-ts(tfchinm, start=1960, end=2015, frequency=2)
+plot(tfchinm.ts)
+tfocdenm.ts<-ts(tfocdenm, start=1960, end=2013, frequency=2)
+plot(tfocdenm.ts)
+
+tfmexnm.ts.decom <-decompose(tfmexnm.ts)
+plot(as.ts(tfmexnm.ts.decom$seasonal))
+plot(as.ts(tfmexnm.ts.decom$trend))
+plot(as.ts(tfmexnm.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(tfmexnm.ts.decom$seasonal)
+plot(tfmexnm.ts.decom$trend)
+plot(tfmexnm.ts.decom$random)
+
+tfchinm.ts.decom <-decompose(tfchinm.ts)
+plot(as.ts(tfchinm.ts.decom$seasonal))
+plot(as.ts(tfchinm.ts.decom$trend))
+plot(as.ts(tfchinm.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(tfchinm.ts.decom$seasonal)
+plot(tfchinm.ts.decom$trend)
+plot(tfchinm.ts.decom$random)
+
+tfocdenm.ts.decom <-decompose(tfocdenm.ts)
+plot(as.ts(tfocdenm.ts.decom$seasonal))
+plot(as.ts(tfocdenm.ts.decom$trend))
+plot(as.ts(tfocdenm.ts.decom$random))
+#par(mfrow=c(3,1))
+plot(tfocdenm.ts.decom$seasonal)
+plot(tfocdenm.ts.decom$trend)
+plot(tfocdenm.ts.decom$random)
+
+
+
+
+
+#actfp.ts<- ts(tasareem, data = x__1)
+
+
+
+####################
+x11()
+afpmexmd.ts<-ts(afpmexmd, start=1982, end=2013, frequency=2)
+afpmexmd.ts.decom <-decompose(afpmexmd.ts)
+plot(as.ts(afpmexmd.ts.decom$seasonal))
+plot(as.ts(afpmexmd.ts.decom$trend))
+plot(as.ts(afpmexmd.ts.decom$random))
+
+par(mfrow=c(3,1))
+plot(afpmexmd.ts.decom$seasonal)
+plot(afpmexmd.ts.decom$trend)
+plot(afpmexmd.ts.decom$random)
